@@ -13,6 +13,7 @@
 
 /* Menu Bar Logo */
 
+
 .logo-section {
   display: flex;
   width: fit-content;
@@ -27,18 +28,30 @@
 
 /* Menu Bar Search */
 
+.search-section {
+  display: flex;
+  width: 60%;
+  height: 40px;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 20px;
+}
+
 .input-field {
-    height: 70px;
-  width: 100%;
+  height: 100%;
   position: relative;
   height: 100%;
   width: 100%;
   background: transparent;
   border: 0;
   background: #fff;
-  display: block;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0 20px;
+  border-radius: 34px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   width: 100%;
-  padding: 10px 32px 10px 70px;
   font-size: 18px;
   color: #666;
   border-radius: 34px;
@@ -89,6 +102,19 @@
 .btn-search:hover,
 .btn-search:focus {
   fill: #666;
+}
+
+.search {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.search:focus {
+  border: none;
+  outline: none;
 }
 
 @media screen and (max-width: 767px) {
