@@ -2,7 +2,9 @@ import React from 'react'
 
 const Navigation = () => {
   return (
-    <div>Navigation</div>
+    <span className='navigation'>
+      Navigation
+    </span>
   )
 }
 

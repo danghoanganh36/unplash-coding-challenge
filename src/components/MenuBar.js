@@ -5,7 +5,7 @@ import Search from "./Search";
 
 const MenuBar = () => {
   return (
-    <header >
+    // <header >
       <span className="menu-bar">
         <div className="logo-section">
           <Logo />
@@ -14,7 +14,7 @@ const MenuBar = () => {
           <Search />
         </div>
       </span>
-    </header>
+    // </header>
   );
 };
 
