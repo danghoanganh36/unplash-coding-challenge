@@ -15,9 +15,9 @@ const Gallery = () => {
         let apiUrl = "";
 
         if (topic) {
-          apiUrl = `https://api.unsplash.com/search/photos?query=${topic}&client_id=wc1Xg-SiEPLbjNAGrRXfBvvoXtnLFKNvnH6BgkHr3Pg`;
+          apiUrl = `https://api.unsplash.com/search/photos?query=${topic}&count=100&client_id=wc1Xg-SiEPLbjNAGrRXfBvvoXtnLFKNvnH6BgkHr3Pg`;
         } else {
-          apiUrl = "https://api.unsplash.com/photos/?client_id=wc1Xg-SiEPLbjNAGrRXfBvvoXtnLFKNvnH6BgkHr3Pg";
+          apiUrl = `https://api.unsplash.com/photos/?count=100&client_id=wc1Xg-SiEPLbjNAGrRXfBvvoXtnLFKNvnH6BgkHr3Pg`;
         }
 
         const response = await fetch(apiUrl);
