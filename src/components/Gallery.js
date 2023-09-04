@@ -1,37 +1,50 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Components.css";
-import Img1 from "../Saved Pictures/pexels-leeloo-thefirst-5238645.jpg";
-import Img2 from "../Saved Pictures/pexels-shvets-production-7525029.jpg";
-import Img3 from "../Saved Pictures/wallpaperflare.com_wallpaper.jpg";
-import Img4 from "../Saved Pictures/pexels-leeloo-thefirst-5238645.jpg";
+import CloseIcon from '@mui/icons-material/Close';
+import { useParams } from "react-router-dom";
 
 const Gallery = () => {
-  let images = [
-    {
-      id: 1,
-      imgSrc: Img1,
-    },
-    {
-      id: 2,
-      imgSrc: Img2,
-    },
-    {
-      id: 3,
-      imgSrc: Img3,
-    },
-    {
-      id: 4,
-      imgSrc: Img4,
-    },
-  ];
+
+  const [images, setImages] = useState([]);
+  const [tempImgSrc, setTempImgSrc] = useState("");
+  const [model, setModel] = useState(false);
+  const { topic } = useParams();
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const response = await fetch(`https://api.unsplash.com/search/photos?query=${topic}&client_id=wc1Xg-SiEPLbjNAGrRXfBvvoXtnLFKNvnH6BgkHr3Pg`);
+
+        if (!response.ok) {
+          throw new Error('Something went wrong!');
+        }
+
+        const data = await response.json();
+        setImages(data.results);
+      } catch (error) {
+        console.error(error.message);
+        setModel(false);
+      }
+    };
+    fetchImages(); 
+  }, [topic]);
+
+  const getImage = (imgSrc) => {
+    setTempImgSrc(imgSrc);
+    setModel(true);
+  };
 
   return (
     <>
+      <div className={model ? "model open" : "model"}>
+        <img src={tempImgSrc} alt="" />
+        <CloseIcon onClick={() => setModel(false)} />
+      </div>
       <div className="gallery">
-        {images.map((item, index) => {
+        {images.map((item) => {
           return (
-            <div className="images" key={index}>
-              <img src={item.imgSrc} style={{width: '100%'}} alt="" />
+            <div className="images" onClick={() => getImage(item.urls.regular)}>
+              <img src={item.urls.regular} style={{ width: '100%' }} alt="" />
             </div>
           );
         })}
