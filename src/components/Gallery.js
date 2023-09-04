@@ -4,7 +4,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useParams } from "react-router-dom";
 
 const Gallery = () => {
-
   const [images, setImages] = useState([]);
   const [tempImgSrc, setTempImgSrc] = useState("");
   const [model, setModel] = useState(false);
@@ -13,20 +12,29 @@ const Gallery = () => {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await fetch(`https://api.unsplash.com/search/photos?query=${topic}&client_id=wc1Xg-SiEPLbjNAGrRXfBvvoXtnLFKNvnH6BgkHr3Pg`);
+        let apiUrl = "";
+
+        if (topic) {
+          apiUrl = `https://api.unsplash.com/search/photos?query=${topic}&client_id=wc1Xg-SiEPLbjNAGrRXfBvvoXtnLFKNvnH6BgkHr3Pg`;
+        } else {
+          apiUrl = "https://api.unsplash.com/photos/?client_id=wc1Xg-SiEPLbjNAGrRXfBvvoXtnLFKNvnH6BgkHr3Pg";
+        }
+
+        const response = await fetch(apiUrl);
 
         if (!response.ok) {
           throw new Error('Something went wrong!');
         }
 
         const data = await response.json();
-        setImages(data.results);
+        setImages(data.results || data); 
       } catch (error) {
         console.error(error.message);
         setModel(false);
       }
     };
-    fetchImages(); 
+
+    fetchImages();
   }, [topic]);
 
   const getImage = (imgSrc) => {
@@ -41,13 +49,11 @@ const Gallery = () => {
         <CloseIcon onClick={() => setModel(false)} />
       </div>
       <div className="gallery">
-        {images.map((item) => {
-          return (
-            <div className="images" onClick={() => getImage(item.urls.regular)}>
-              <img src={item.urls.regular} style={{ width: '100%' }} alt="" />
-            </div>
-          );
-        })}
+        {images.map((item) => (
+          <div className="images" onClick={() => getImage(item.urls.regular)} key={item.id}>
+            <img src={item.urls.regular} style={{ width: '100%' }} alt="" />
+          </div>
+        ))}
       </div>
     </>
   );

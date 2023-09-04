@@ -15,7 +15,8 @@ const Home = () => {
           <Navigation />
         </header>
         <Routes>
-        <Route path="/topic/:topic" element={<Gallery />} /> 
+          <Route path="/" element={<Gallery />} />
+          <Route path="/topic/:topic" element={<Gallery />} /> 
         </Routes>
       </BrowserRouter>
     </div>
